@@ -1,0 +1,8 @@
+name: UHC3945
+main: net.novaproject.uhc3945.Main
+version: 1.0
+authors:
+  - wuzax
+  - Lezombie3D
+depend:
+  - NovaUHC
