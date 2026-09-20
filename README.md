@@ -12,11 +12,15 @@ Sans MongoDB / API Nova, le plugin charge quand même, mais la sauvegarde de con
 
 ## Compilation
 
-Prérequis : **JDK 17+** (ce dépôt utilise Gradle 9).
+Prérequis : **JDK 25+**. Nova `core` dépend de CloudNet `4.0.0-RC15`, dont les artefacts sont compilés pour la JVM 25. Avec un JDK 21, Gradle échoue dès `:core:compileJava` (`wrapper-jvm-impl` n’est pas compatible JVM 21).
+
+Le wrapper n’est pas exécutable dans Git (`100644`) : utilisez `bash ./gradlew`.
 
 ```bash
-./gradlew build
+bash ./gradlew build
 ```
+
+Vérifié : `BUILD SUCCESSFUL` avec Temurin 25.0.4.1 (module `uhc3945` inclus). Sur JDK 21, le build s’arrête sur CloudNet — ce n’est pas un problème du module 39-45.
 
 JARs produits :
 
