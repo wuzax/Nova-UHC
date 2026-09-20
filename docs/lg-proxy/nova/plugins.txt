@@ -1,0 +1,14 @@
+# plugins/ du backend nova (Spigot 1.8.8, port 25565)
+#
+# Requis :
+#   - API.jar              (module core = plugin NovaUHC)
+#   - packetevents         (depend de NovaUHC)
+#   - LGBridge.jar         (ce pont — Mode de Jeu « LG-UHC (Ph1Lou) »)
+#
+# Optionnel (gameplay Nova uniquement, inutile pour le transfert LG) :
+#   - Ultimate.jar
+#   - ScenarioPlus.jar
+#   - UHC3945.jar
+#
+# Interdit sur cette instance :
+#   - WereWolfPlugin (Ph1Lou) — le mettre uniquement sur le backend lg
