@@ -1,0 +1,59 @@
+# Nova-UHC (fork)
+
+Ce dépôt est un **fork** de [lezombie3D/Nova-UHC](https://github.com/lezombie3D/Nova-UHC), un plugin UHC Spigot 1.8.8.
+
+Licence : **[GNU Affero General Public License v3.0](LICENSE)** (AGPL-3.0). Toute modification déployée sur un serveur doit rester disponible sous la même licence.
+
+## MongoDB
+
+Nova embarque `mongo-java-driver` dans le module `core` : configs, scénarios et rôles sont sérialisés en documents BSON (`org.bson.Document`). Un déploiement Nova typique s’appuie donc sur **MongoDB** (et, selon la config, sur l’API HTTP définie dans `core/src/main/resources/config.yml` → `api.url` / `api.key`).
+
+Sans MongoDB / API Nova, le plugin charge quand même, mais la sauvegarde de configs et certaines fonctions réseau ne seront pas disponibles. Le gameplay UHC (bordure, épisodes, meetup, rôles) reste géré par le core Nova — il ne faut pas le réimplémenter dans un module scénario.
+
+## Compilation
+
+Prérequis : **JDK 17+** (ce dépôt utilise Gradle 9).
+
+```bash
+./gradlew build
+```
+
+JARs produits :
+
+| Module | Archive |
+| --- | --- |
+| `core` (+ `api`) | `core/build/libs/API.jar` (plugin **NovaUHC**) |
+| `ultimate` | `ultimate/build/libs/Ultimate.jar` |
+| `scenarioplus` | `scenarioplus/build/libs/ScenarioPlus.jar` |
+| `uhc3945` | `uhc3945/build/libs/UHC3945.jar` |
+
+Copier ces JARs dans `plugins/` d’un serveur Spigot/Paper **1.8.8**, avec les dépendances de Nova (`packetevents`, éventuellement Apollo / Citizens).
+
+## Scénario UHC 39-45
+
+Module Gradle **`uhc3945`** : UHC à rôles cachés sur le thème de la Seconde Guerre mondiale, branché sur le framework camps/rôles de Nova (`ScenarioRole` / `ModeKit`). La boucle UHC (bordure, épisodes, meetup, PvP) est celle du core.
+
+### Camps
+
+| Camp | Comportement (scaffold) |
+| --- | --- |
+| **Axe** | Camp organisé : victoire groupée, les membres se connaissent. |
+| **Résistance** | Camp fragmenté : victoire de camp pour l’instant ; cellules / authentification **à venir**. |
+| **Civils** | Indépendants : victoire solo. |
+
+### Rôles stub (cette PR)
+
+- **Axe** : Commandant (unique), Soldat (masse)
+- **Résistance** : Chef de réseau (unique), Résistant (masse)
+- **Civils** : Civil (filler si la composition ne couvre pas tous les joueurs), Informateur (unique)
+
+Hors périmètre pour l’instant : pouvoirs, authentification des cellules, infiltration, limites de groupes, génération de monde.
+
+### Activer le scénario
+
+1. Démarrer le serveur avec **NovaUHC** + **UHC3945** (le module s’enregistre ~1 s après le enable, comme Ultimate / ScenarioPlus).
+2. En host : `/h config` → menu des **scénarios spéciaux** → activer **UHC 39-45**.
+3. Ouvrir la config du scénario pour composer les rôles (incrémenter Commandant, Soldats, etc.).
+4. Lancer la partie : les rôles sont distribués au timer PvP (ou au timer rôles du scénario), comme les autres modes `ScenarioRole`.
+
+Un seul scénario spécial à la fois : n’activez pas Legend / Nuzlocke en même temps que 39-45.
