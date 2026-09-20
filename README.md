@@ -37,15 +37,17 @@ Copier ces JARs dans `plugins/` d’un serveur Spigot/Paper **1.8.8**, avec les 
 
 Module Gradle **`uhc3945`** : UHC à rôles cachés sur le thème de la Seconde Guerre mondiale, branché sur le framework camps/rôles de Nova (`ScenarioRole` / `ModeKit`). La boucle UHC (bordure, épisodes, meetup, PvP) est celle du core.
 
-### Camps
+### Camps et victoire
 
-| Camp | Comportement (scaffold) |
+| Camp | Victoire |
 | --- | --- |
-| **Axe** | Camp organisé : victoire groupée, les membres se connaissent. |
-| **Résistance** | Camp fragmenté : victoire de camp pour l’instant ; cellules / authentification **à venir**. |
-| **Civils** | Indépendants : victoire solo. |
+| **Axe** | Victoire de camp lorsque la Résistance est neutralisée. Les civils survivants ne bloquent pas (configurable). |
+| **Résistance** | Victoire de camp lorsque l’Axe est neutralisé. Les hooks d’objectifs de scénario (cellules, etc.) ne retardent pas la fin s’il n’y a plus d’opposition. |
+| **Civils** | Objectifs personnels (hooks). Un civil gagne s’il est encore en vie à la victoire militaire, ou s’il ne reste plus que des civils. |
 
-### Rôles stub (cette PR)
+La détection est branchée sur `ScenarioRole` / `VictoryManager` (`winCondition` + libellé de fin). Flags host dans la config du scénario : civils bloquants, Commandant requis, objectifs Résistance, fin sans opposition, partage civil.
+
+### Rôles stub
 
 - **Axe** : Commandant (unique), Soldat (masse)
 - **Résistance** : Chef de réseau (unique), Résistant (masse)
