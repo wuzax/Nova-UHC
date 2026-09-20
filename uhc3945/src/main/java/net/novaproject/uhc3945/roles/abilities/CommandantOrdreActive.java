@@ -13,6 +13,7 @@ import net.novaproject.novauhc.utils.variable.VariableType;
 import net.novaproject.uhc3945.Camps3945;
 import net.novaproject.uhc3945.Lang3945;
 import net.novaproject.uhc3945.Power3945;
+import net.novaproject.uhc3945.roles.Infiltre;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -61,6 +62,7 @@ public class CommandantOrdreActive extends UseAbility implements Dying {
         int allies = 0;
         for (Player nearby : TargetSelector.playersInRadius(player, radius)) {
             if (!Power3945.sameCamp(nearby, Camps3945.AXE)) continue;
+            if (Power3945.roleOf(nearby) instanceof Infiltre) continue;
             apply(nearby, ticks);
             allies++;
         }

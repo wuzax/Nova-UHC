@@ -7,17 +7,24 @@ import net.novaproject.novauhc.player.UHCPlayer;
 import net.novaproject.novauhc.player.UHCPlayerManager;
 import net.novaproject.novauhc.scenario.role.CampWinPolicy;
 import net.novaproject.novauhc.scenario.role.ModeKit;
+import net.novaproject.novauhc.scenario.role.Role;
 import net.novaproject.novauhc.scenario.role.ScenarioRole;
 import net.novaproject.novauhc.scenario.role.camps.Camps;
 import net.novaproject.novauhc.utils.item.ItemCreator;
 import net.novaproject.novauhc.utils.variable.Var;
 import net.novaproject.novauhc.utils.variable.VariableType;
+import net.novaproject.uhc3945.auth.AuthService;
+import net.novaproject.uhc3945.auth.NetworkCommands;
+import net.novaproject.uhc3945.cell.CellService;
+import net.novaproject.uhc3945.cell.ResistanceCell;
 import net.novaproject.uhc3945.groups.GroupLimitService;
 import net.novaproject.uhc3945.groups.GroupLimitSettings;
+import net.novaproject.uhc3945.knowledge.KnowledgeService;
 import net.novaproject.uhc3945.roles.ChefReseau;
 import net.novaproject.uhc3945.roles.CivilNeutre;
 import net.novaproject.uhc3945.roles.Commandant;
 import net.novaproject.uhc3945.roles.Contrebandier;
+import net.novaproject.uhc3945.roles.Infiltre;
 import net.novaproject.uhc3945.roles.Informateur;
 import net.novaproject.uhc3945.roles.Medecin;
 import net.novaproject.uhc3945.roles.Officier;
@@ -34,6 +41,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 import java.util.function.BooleanSupplier;
 
 public class Scenario3945 extends ScenarioRole<Role3945> implements Listener {
@@ -125,10 +135,19 @@ public class Scenario3945 extends ScenarioRole<Role3945> implements Listener {
             type = VariableType.BOOLEAN)
     private boolean survivingCiviliansShareVictory = true;
 
+    @Var(category = "cellules", name = "Isolé si effectif % 3",
+            desc = "Si la Résistance a au moins 7 membres et un multiple de 3, un agent isolé est tiré (ex. 9 → 3+3+2+1).",
+            type = VariableType.BOOLEAN)
+    private boolean isolateWhenDivisibleBy3 = true;
+
     private final PersonalObjectiveTracker personalObjectives = new PersonalObjectiveTracker();
+    private final CellService cells = new CellService();
+    private final KnowledgeService knowledge = new KnowledgeService();
+    private final AuthService auth = new AuthService();
     private BooleanSupplier resistanceScenarioCondition = () -> true;
     private BooleanSupplier axeScenarioCondition = () -> true;
     private Win3945.Outcome lastOutcome = Win3945.Outcome.none();
+    private boolean commandsRegistered;
 
     public static Scenario3945 get() {
         return instance;
@@ -161,6 +180,18 @@ public class Scenario3945 extends ScenarioRole<Role3945> implements Listener {
 
     public PersonalObjectiveTracker personalObjectives() {
         return personalObjectives;
+    }
+
+    public CellService cells() {
+        return cells;
+    }
+
+    public KnowledgeService knowledge() {
+        return knowledge;
+    }
+
+    public AuthService auth() {
+        return auth;
     }
 
     public void setResistanceScenarioCondition(BooleanSupplier condition) {
@@ -229,6 +260,7 @@ public class Scenario3945 extends ScenarioRole<Role3945> implements Listener {
                 .uniqueRoles(
                         Commandant.class,
                         Officier.class,
+                        Infiltre.class,
                         ChefReseau.class,
                         Medecin.class,
                         Saboteur.class,
@@ -237,9 +269,9 @@ public class Scenario3945 extends ScenarioRole<Role3945> implements Listener {
                 .role(Soldat.class)
                 .role(Resistant.class)
                 .filler(CivilNeutre.class)
-                .revealWithin(Camps3945.AXE)
+                .onDistributed(this::onRolesDistributed)
                 .apply();
-        Bukkit.getLogger().info("[UHC 39-45] Scénario initialisé (limites de groupe, victoire, pouvoirs).");
+        Bukkit.getLogger().info("[UHC 39-45] Scénario initialisé (groupes, victoire, pouvoirs, cellules).");
     }
 
     @Override
@@ -247,6 +279,10 @@ public class Scenario3945 extends ScenarioRole<Role3945> implements Listener {
         super.onGameStart();
         GroupLimitService.get().reset();
         VictoryManager.setWinLabelResolver(this::resolveWinLabel);
+        if (!commandsRegistered) {
+            NetworkCommands.register();
+            commandsRegistered = true;
+        }
     }
 
     @Override
@@ -258,6 +294,31 @@ public class Scenario3945 extends ScenarioRole<Role3945> implements Listener {
         lastOutcome = Win3945.Outcome.none();
         resistanceScenarioCondition = () -> true;
         axeScenarioCondition = () -> true;
+        cells.clear();
+        knowledge.clear();
+        auth.clear();
+    }
+
+    private void onRolesDistributed(Map<UHCPlayer, Role> roles) {
+        Random random = new Random();
+        cells.assign(roles, isolateWhenDivisibleBy3, random);
+        knowledge.grantInitial(roles, cells);
+        auth.issueCredentials(cells, random);
+        for (Map.Entry<UHCPlayer, Role> entry : roles.entrySet()) {
+            Role role = entry.getValue();
+            if (role == null || entry.getKey() == null) {
+                continue;
+            }
+            ResistanceCell cell = cells.cellOf(entry.getKey().getUuid());
+            if (cell == null) {
+                continue;
+            }
+            for (UUID other : cell.getMembers()) {
+                if (!other.equals(entry.getKey().getUuid())) {
+                    role.addPartner(other);
+                }
+            }
+        }
     }
 
     @Override
