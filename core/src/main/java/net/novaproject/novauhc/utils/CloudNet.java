@@ -43,8 +43,10 @@ import java.util.Optional;
 public class CloudNet {
 
     public static final DocProperty<String> NOVA = DocProperty.property("NovaUHC", String.class);
+    private static CloudNet instance;
     private String gameName;
     public CloudNet() {
+        instance = this;
         Bukkit.getLogger().info("CloudNet Active for UHC");
         new BukkitRunnable() {
             @Override
@@ -54,7 +56,7 @@ public class CloudNet {
         }.runTaskTimer(Main.get(), 20, 20);
     }
     public static CloudNet get() {
-        return Main.get().getCloudNet();
+        return instance;
     }
 
     public CloudServiceProvider getServices() {

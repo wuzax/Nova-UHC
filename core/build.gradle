@@ -11,13 +11,13 @@ dependencies {
 
     api group: 'com.github.azbh111', name: 'spigot-1.8.8', version: 'R'
 
-    api platform('eu.cloudnetservice.cloudnet:bom:4.0.0-RC15')
-    api 'eu.cloudnetservice.cloudnet:driver-api'
-    api 'eu.cloudnetservice.cloudnet:wrapper-jvm-impl'
-    api 'eu.cloudnetservice.cloudnet:bridge-api'
-    api 'eu.cloudnetservice.cloudnet:platform-inject-api'
+    compileOnly platform('eu.cloudnetservice.cloudnet:bom:4.0.0-RC15')
+    compileOnly 'eu.cloudnetservice.cloudnet:driver-api'
+    compileOnly 'eu.cloudnetservice.cloudnet:wrapper-jvm-impl'
+    compileOnly 'eu.cloudnetservice.cloudnet:bridge-api'
+    compileOnly 'eu.cloudnetservice.cloudnet:platform-inject-api'
 
-    api 'dev.derklaro.aerogel:aerogel:2.0.0-SNAPSHOT'
+    compileOnly 'dev.derklaro.aerogel:aerogel:2.0.0-SNAPSHOT'
 
     extraLibs 'org.mongodb:mongo-java-driver:3.12.11'
     extraLibs 'xyz.xenondevs:particle:1.8.1'

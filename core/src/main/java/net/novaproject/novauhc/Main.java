@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import lombok.Getter;
 import net.novaproject.novauhc.lang.lang.*;
-import net.novaproject.novauhc.utils.CloudNet;
 import net.novaproject.novauhc.command.CommandManager;
 import net.novaproject.novauhc.api.ApiManager;
 import net.novaproject.novauhc.api.ApiConfigManager;
@@ -51,9 +50,6 @@ public class Main extends JavaPlugin {
 
     @Getter
     private CommandManager commandManager;
-
-    @Getter
-    private CloudNet cloudNet = null;
 
     public static Main get() {
         return instance;
@@ -129,8 +125,16 @@ public class Main extends JavaPlugin {
         ScenarioManager.get().markBooted();
 
         new ReconnectionManager();
+        // CloudNet n'est chargé que si CloudNet-Bridge est présent : sinon
+        // NoClassDefFoundError (les APIs CloudNet ne sont pas ombrées dans API.jar).
         if (Bukkit.getPluginManager().getPlugin("CloudNet-Bridge") != null) {
-            cloudNet = new CloudNet();
+            try {
+                Class.forName("net.novaproject.novauhc.utils.CloudNet")
+                        .getConstructor()
+                        .newInstance();
+            } catch (Throwable t) {
+                getLogger().warning("CloudNet-Bridge détecté mais init ignorée : " + t.getMessage());
+            }
         }
         new BukkitRunnable() {
             @Override

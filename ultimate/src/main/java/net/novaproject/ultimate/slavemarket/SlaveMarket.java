@@ -3,7 +3,6 @@ package net.novaproject.ultimate.slavemarket;
 import net.novaproject.novauhc.lobby.HotbarManager;
 import net.novaproject.novauhc.utils.variable.Var;
 
-import net.kyori.adventure.title.Title;
 import net.novaproject.novauhc.Common;
 import net.novaproject.novauhc.Main;
 import net.novaproject.novauhc.UHCManager;
