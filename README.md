@@ -30,8 +30,13 @@ JARs produits :
 | `ultimate` | `ultimate/build/libs/Ultimate.jar` |
 | `scenarioplus` | `scenarioplus/build/libs/ScenarioPlus.jar` |
 | `uhc3945` | `uhc3945/build/libs/UHC3945.jar` |
+| `lguhc` | `lguhc/build/libs/LGUHC.jar` (pont WereWolf officiel, **pas** un port de rôles) |
 
 Copier ces JARs dans `plugins/` d’un serveur Spigot/Paper **1.8.8**, avec les dépendances de Nova (`packetevents`, éventuellement Apollo / Citizens).
+
+## LG-UHC (Ph1Lou)
+
+Loup-Garou UHC **n’est pas** réimplémenté dans Nova. On utilise le plugin officiel **WereWolfPlugin** (AGPL, Ph1Lou, multi-1.8.8–1.21+, Java 8). Nova et WereWolf sont **deux moteurs UHC** : ne lancez pas les deux parties à la fois. Détail, install Spigot **#73113**, compilation JDK 8+ : **[LGUHC.md](LGUHC.md)**.
 
 ## Scénario UHC 39-45
 
