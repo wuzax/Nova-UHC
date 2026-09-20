@@ -7,24 +7,19 @@ import net.novaproject.novauhc.utils.variable.VariableType;
 import net.novaproject.uhc3945.Camps3945;
 import net.novaproject.uhc3945.Lang3945;
 import net.novaproject.uhc3945.Role3945;
-import net.novaproject.uhc3945.roles.abilities.CivilAllegeanceCommand;
-import net.novaproject.uhc3945.roles.abilities.CivilInstinctActive;
+import net.novaproject.uhc3945.roles.abilities.ContrebandierColisActive;
 import net.novaproject.uhc3945.win.PersonalObjective;
 import net.novaproject.uhc3945.win.PersonalObjectives;
 import org.bukkit.Material;
 
-public class CivilNeutre extends Role3945 {
+public class Contrebandier extends Role3945 {
 
-    @Var(name = "Instinct", desc = "Présence proche, 1× par épisode. Épisode 3.", type = VariableType.ABILITY)
-    public Ability instinct;
+    @Var(name = "Colis", desc = "Or + pomme d'or, ou don en sneak. Épisode 3.", type = VariableType.ABILITY)
+    public Ability colis;
 
-    @Var(name = "Allégeance", desc = "Choix unique tardif, sans changer de camp. Épisode 5.", type = VariableType.ABILITY)
-    public Ability allegeance;
-
-    public CivilNeutre() {
+    public Contrebandier() {
         setCamp(Camps3945.CIVILIAN);
-        this.instinct = new CivilInstinctActive();
-        this.allegeance = new CivilAllegeanceCommand();
+        this.colis = new ContrebandierColisActive();
     }
 
     @Override
@@ -34,16 +29,16 @@ public class CivilNeutre extends Role3945 {
 
     @Override
     public String getName() {
-        return "Civil";
+        return "Contrebandier";
     }
 
     @Override
     public Material getIconMaterial() {
-        return Material.WHEAT;
+        return Material.CHEST;
     }
 
     @Override
     public Lang getDescriptionLang() {
-        return Lang3945.ROLE_DESC_CIVIL;
+        return Lang3945.ROLE_DESC_CONTREBANDIER;
     }
 }

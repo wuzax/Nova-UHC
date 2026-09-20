@@ -17,8 +17,12 @@ import net.novaproject.uhc3945.groups.GroupLimitSettings;
 import net.novaproject.uhc3945.roles.ChefReseau;
 import net.novaproject.uhc3945.roles.CivilNeutre;
 import net.novaproject.uhc3945.roles.Commandant;
+import net.novaproject.uhc3945.roles.Contrebandier;
 import net.novaproject.uhc3945.roles.Informateur;
+import net.novaproject.uhc3945.roles.Medecin;
+import net.novaproject.uhc3945.roles.Officier;
 import net.novaproject.uhc3945.roles.Resistant;
+import net.novaproject.uhc3945.roles.Saboteur;
 import net.novaproject.uhc3945.roles.Soldat;
 import net.novaproject.uhc3945.win.PersonalObjective;
 import net.novaproject.uhc3945.win.PersonalObjectiveTracker;
@@ -222,13 +226,20 @@ public class Scenario3945 extends ScenarioRole<Role3945> implements Listener {
                 .camp(Camps3945.RESISTANCE, CampWinPolicy::together)
                 .camp(Camps3945.CIVILIAN, CampWinPolicy::solo)
                 .winCondition(roles -> evaluateWin().win())
-                .uniqueRoles(Commandant.class, ChefReseau.class, Informateur.class)
+                .uniqueRoles(
+                        Commandant.class,
+                        Officier.class,
+                        ChefReseau.class,
+                        Medecin.class,
+                        Saboteur.class,
+                        Informateur.class,
+                        Contrebandier.class)
                 .role(Soldat.class)
                 .role(Resistant.class)
                 .filler(CivilNeutre.class)
                 .revealWithin(Camps3945.AXE)
                 .apply();
-        Bukkit.getLogger().info("[UHC 39-45] Scénario initialisé (camps, limites de groupe, conditions de victoire).");
+        Bukkit.getLogger().info("[UHC 39-45] Scénario initialisé (limites de groupe, victoire, pouvoirs).");
     }
 
     @Override

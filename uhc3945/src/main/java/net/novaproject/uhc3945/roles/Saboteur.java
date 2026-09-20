@@ -7,31 +7,31 @@ import net.novaproject.novauhc.utils.variable.VariableType;
 import net.novaproject.uhc3945.Camps3945;
 import net.novaproject.uhc3945.Lang3945;
 import net.novaproject.uhc3945.Role3945;
-import net.novaproject.uhc3945.roles.abilities.ChefSignalActive;
+import net.novaproject.uhc3945.roles.abilities.SaboteurNeutraliseActive;
 import org.bukkit.Material;
 
-public class ChefReseau extends Role3945 {
+public class Saboteur extends Role3945 {
 
-    @Var(name = "Signal", desc = "Présences proches sans identités. Épisode 3.", type = VariableType.ABILITY)
-    public Ability signal;
+    @Var(name = "Sabotage", desc = "Silence temporaire des pouvoirs. Épisode 4.", type = VariableType.ABILITY)
+    public Ability sabotage;
 
-    public ChefReseau() {
+    public Saboteur() {
         setCamp(Camps3945.RESISTANCE);
-        this.signal = new ChefSignalActive();
+        this.sabotage = new SaboteurNeutraliseActive();
     }
 
     @Override
     public String getName() {
-        return "Chef de réseau";
+        return "Saboteur";
     }
 
     @Override
     public Material getIconMaterial() {
-        return Material.COMPASS;
+        return Material.REDSTONE;
     }
 
     @Override
     public Lang getDescriptionLang() {
-        return Lang3945.ROLE_DESC_CHEF_RESEAU;
+        return Lang3945.ROLE_DESC_SABOTEUR;
     }
 }

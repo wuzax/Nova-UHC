@@ -43,17 +43,44 @@ Module Gradle **`uhc3945`** : UHC à rôles cachés sur le thème de la Seconde 
 | --- | --- |
 | **Axe** | Victoire de camp lorsque la Résistance est neutralisée. Les civils survivants ne bloquent pas (configurable). |
 | **Résistance** | Victoire de camp lorsque l’Axe est neutralisé. Les hooks d’objectifs de scénario (cellules, etc.) ne retardent pas la fin s’il n’y a plus d’opposition. |
-| **Civils** | Objectifs personnels (hooks). Un civil gagne s’il est encore en vie à la victoire militaire, ou s’il ne reste plus que des civils. |
+| **Civils** | Objectifs personnels. Un civil gagne s’il est encore en vie à la victoire militaire, ou s’il ne reste plus que des civils. |
 
-La détection est branchée sur `ScenarioRole` / `VictoryManager` (`winCondition` + libellé de fin). Flags host dans la config du scénario : civils bloquants, Commandant requis, objectifs Résistance, fin sans opposition, partage civil.
+La détection est branchée sur `ScenarioRole` / `VictoryManager` (`winCondition` + libellé de fin). Flags host dans la config du scénario (catégorie **victoire**) : civils bloquants, Commandant requis, objectifs Résistance, fin sans opposition, partage civil.
 
-### Rôles stub
+### Limites de groupe (pré-meetup)
 
-- **Axe** : Commandant (unique), Soldat (masse)
-- **Résistance** : Chef de réseau (unique), Résistant (masse)
-- **Civils** : Civil (filler si la composition ne couvre pas tous les joueurs), Informateur (unique)
+Plafonds par camp dans un rayon de 35 blocs : **Axe 4**, **Résistance 3**, **Civils 3**. Tant que les rôles ne sont pas distribués : plafond global (3). Tolérance 25 s, puis avertissement → compte à rebours → malus (Weakness + Mining Fatigue, pouvoirs coupés). Exceptions : combat, dispersion. Meetup : limites levées par défaut. Tout est réglable (catégorie **groupes**).
 
-Hors périmètre pour l’instant : pouvoirs, authentification des cellules, infiltration, limites de groupes, génération de monde.
+### Rôles et pouvoirs
+
+Les pouvoirs suivent les `Ability` Nova (`UseAbility` / `CommandAbility`), avec messages FR, cooldowns, utilisations limitées et **portes d’épisode**. Pas de Strength auto-win, pas de révélation d’un camp entier via un pouvoir.
+
+**Axe**
+
+| Rôle | Type | Pouvoir |
+| --- | --- | --- |
+| Commandant | unique | **Ordre** (ép. 2, item) : Speed I + Résistance I aux Axe proches. Sa mort affaiblit les Soldats. |
+| Officier | unique | **`/role rapport`** (ép. 2) : position approximative du Commandant. |
+| Soldat | masse | **Charge** (ép. 2, item) : Speed II + Résistance I, courte durée. Plus faible sans Commandant. |
+
+**Résistance**
+
+| Rôle | Type | Pouvoir |
+| --- | --- | --- |
+| Chef de réseau | unique | **Signal** (ép. 3, item) : nombre de présences + direction, **sans noms**. |
+| Résistant | masse | **Cachette** (ép. 2, item) : invisibilité brève. |
+| Médecin | unique | **Soin** (ép. 2, item) : quelques cœurs, 3 utilisations. 1 pomme d’or au briefing. |
+| Saboteur | unique | **Sabotage** (ép. 4, item) : silence des pouvoirs + perte des buffs, 2 utilisations. |
+
+**Civils**
+
+| Rôle | Type | Pouvoir |
+| --- | --- | --- |
+| Civil | filler | **Instinct** (ép. 3, 1×/épisode) ; **`/role allegeance rester\|soutenir`** (ép. 5, 1×, ne change pas le camp). Objectif : survivre. |
+| Informateur | unique | **`/role analyser`** (ép. 2) : santé / distance / équipement, jamais le rôle. **`/role transmettre`** (ép. 3) accomplit l’objectif personnel. |
+| Contrebandier | unique | **Colis** (ép. 3, item) : or + pomme d’or. Sneak + visée pour le donner. Objectif : survivre. |
+
+Hors périmètre ici : cellules / authentification (intégré à part).
 
 ### Activer le scénario
 
