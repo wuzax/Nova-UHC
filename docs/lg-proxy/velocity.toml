@@ -1,0 +1,48 @@
+config-version = "2.7"
+bind = "0.0.0.0:25577"
+motd = "<#9b59b6>Nova UHC / LG-UHC"
+show-max-players = 80
+online-mode = true
+force-key-authentication = false
+player-info-forwarding-mode = "legacy"
+prevent-client-proxy-connections = false
+forwarding-secret-file = "forwarding.secret"
+announce-forge = false
+kick-existing-players = false
+ping-passthrough = "ALL"
+enable-player-address-logging = true
+
+[servers]
+nova = "127.0.0.1:25565"
+lg = "127.0.0.1:25566"
+try = ["nova"]
+
+[forced-hosts]
+
+[advanced]
+compression-threshold = 256
+compression-level = -1
+login-ratelimit = 3000
+connection-timeout = 5000
+read-timeout = 30000
+haproxy-protocol = false
+tcp-fast-open = false
+bungee-plugin-message-channel = true
+show-ping-requests = false
+failover-on-unexpected-server-disconnect = true
+announce-proxy-commands = true
+log-command-executions = false
+log-player-connections = true
+accepts-transfers = false
+enable-reuse-port = false
+command-rate-limit = 50
+forward-commands-if-rate-limited = true
+kick-after-rate-limited-commands = 0
+tab-complete-rate-limit = 10
+kick-after-rate-limited-tab-completes = 0
+
+[query]
+enabled = false
+port = 25577
+map = "Velocity"
+show-plugins = false

@@ -1,0 +1,12 @@
+name: LGBridge
+main: net.novaproject.lgbridge.Main
+version: 1.0
+authors:
+  - wuzax
+depend:
+  - NovaUHC
+commands:
+  lgbridge:
+    description: Recharge la config ou force le transfert vers le backend LG.
+    usage: /lgbridge reload|transfer
+    permission: novauhc.host

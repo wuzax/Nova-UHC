@@ -1,0 +1,5 @@
+settings:
+  bungeecord: true
+  late-bind: false
+  timeout-time: 60
+  restart-on-crash: false

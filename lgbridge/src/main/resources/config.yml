@@ -1,0 +1,16 @@
+# Nom du serveur déclaré côté Velocity/Bungee (clé [servers], pas l'adresse).
+lg-server-name: lg
+
+# Transfert dès le clic hôte dans /h config → Mode de Jeu.
+transfer-on-select: true
+# Transfert si l'hôte lance la partie avec le mode actif (la boucle UHC Nova est annulée).
+transfer-on-start: true
+
+messages:
+  prefix: "§5§lLG-UHC §8│"
+  selected: "%prefix% §fMode §dLG-UHC (Ph1Lou) §factivé. Transfert vers §d%server%§f…"
+  starting: "%prefix% §fLancement LG-UHC — transfert de tous les joueurs vers §d%server%§f."
+  transfer: "%prefix% §7Connexion au serveur Loup-Garou (§d%server%§7)…"
+  empty: "%prefix% §cAucun joueur en ligne à transférer."
+  disabled: "%prefix% §7Mode LG-UHC désactivé. Les joueurs restent sur Nova."
+  reloaded: "%prefix% §aConfiguration rechargée. Serveur cible : §d%server%§a."
