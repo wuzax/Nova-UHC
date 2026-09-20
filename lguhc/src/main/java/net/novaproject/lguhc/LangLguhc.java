@@ -6,19 +6,43 @@ import java.util.Map;
 
 public enum LangLguhc implements Lang {
 
-    SCENARIO_DESC("§cLG-UHC (Ph1Lou) §7n'est §cpas §7un mode Nova : les rôles restent ceux du plugin officiel "
-            + "§fWereWolfPlugin §7(AGPL, Ph1Lou, Spigot §f#73113§7). "
-            + "Installez §fWereWolfPlugin.jar §7dans §fplugins/§7. "
-            + "§cNe lancez pas une partie Nova et une partie WereWolf en même temps. "
-            + "Nova : 39-45 / Taupe / Ultimate. LG : §f/a §7et §f/ww§7."),
+    SCENARIO_DESC("§aLG-UHC §7est un UHC à rôles cachés inspiré de Ph1Lou (AGPL). "
+            + "Camps : §aVillage§7, §cLoups§7, §eSolitaires§7. "
+            + "Les loups se connaissent et parlent avec le préfixe §flg §7. "
+            + "Victoire village si plus aucun loup, victoire loups si plus aucun villageois. "
+            + "Le couple de Cupidon gagne ensemble. "
+            + "§cPas le plugin WereWolf 1.21§7 : rôles réimplémentés sur Nova 1.8.8."),
 
-    DETECTED("§a§lLG-UHC §8│ §7WereWolfPlugin détecté. Composez et lancez via §f/a§7 — pas le start Nova."),
+    ROLE_DESC_VILLAGEOIS("\n  §a§lVILLAGEOIS\n  §7Camp Village. Aucun pouvoir. Victoire avec le village."),
+    ROLE_DESC_LOUP("\n  §c§lLOUP-GAROU\n  §7Camp Loups. Connaît ses loups. Chat §flg <msg>§7. Victoire en éliminant le village."),
+    ROLE_DESC_VOYANTE("\n  §a§lVOYANTE\n  §7§f/role voir <joueur>§7 : révèle le rôle (1×)."),
+    ROLE_DESC_SORCIERE("\n  §a§lSORCIÈRE\n  §7§f/role soigner <joueur>§7 et §f/role tuer <joueur>§7 : une fois chacun."),
+    ROLE_DESC_CHASSEUR("\n  §a§lCHASSEUR\n  §7À sa mort, tue son assassin s'il est encore en jeu."),
+    ROLE_DESC_PETITE_FILLE("\n  §a§lPETITE FILLE\n  §7Entend le chat des loups (§flg§7). Vision nocturne."),
+    ROLE_DESC_CUPIDON("\n  §a§lCUPIDON\n  §7§f/role couple <j1> <j2>§7 : lie deux joueurs (meurent et gagnent ensemble)."),
+    ROLE_DESC_ANCIEN("\n  §a§lANCIEN\n  §7Survive une première mort (résurrection unique)."),
 
-    MISSING_PLUGIN("§c§lLG-UHC §8│ §7WereWolfPlugin n'est pas chargé. "
-            + "Téléchargez le JAR officiel (Spigot §f#73113§7) ou compilez Ph1Lou (JDK 8+). Voir §fLGUHC.md§7."),
+    POWER_PLAYER_NOT_FOUND("§a§lLG-UHC §8│ §7Joueur introuvable ou hors-jeu."),
+    POWER_USAGE("§a§lLG-UHC §8│ §7Usage : §f%usage%"),
+    POWER_SELF("§a§lLG-UHC §8│ §7Choisis un autre joueur."),
 
-    BLOCK_NOVA_START("§c§lLG-UHC §8│ §7Ce mode se joue avec §fWereWolfPlugin §7(§f/a start§7), "
-            + "pas avec le démarrage Nova. Décochez LG-UHC pour lancer une UHC Nova.");
+    MSG_VOYANTE("§a§lLG-UHC §8│ §f%target% §7est §f%role%§7."),
+    MSG_SORCIERE_HEAL("§a§lLG-UHC §8│ §7Tu soignes §f%target%§7."),
+    MSG_SORCIERE_KILL("§c§lLG-UHC §8│ §7Tu consumes ta potion de mort sur §f%target%§7."),
+    MSG_CUPIDON_OK("§d§lLG-UHC §8│ §7§f%a% §7et §f%b% §7sont désormais un couple."),
+    MSG_CUPIDON_ALREADY("§a§lLG-UHC §8│ §7Le couple est déjà formé."),
+    MSG_ANCIEN_REVIVE("§a§lLG-UHC §8│ §7L'Ancien revient d'entre les morts. Plus de seconde chance."),
+    MSG_CHASSEUR_SHOT("§6§lLG-UHC §8│ §7Le Chasseur emporte §f%target% §7dans sa mort."),
+    MSG_WOLF_CHAT("§a§lLG-UHC §8│ §7Chat des loups : commence tes messages par §flg §7."),
+
+    ABILITY_VOIR("Révéler le rôle d'un joueur, une fois."),
+    ABILITY_SOIGNER("Potion de vie : soigne complètement, une fois."),
+    ABILITY_TUER("Potion de mort : tue la cible, une fois."),
+    ABILITY_COUPLE("Désigner les deux amoureux."),
+    ABILITY_NIGHT("Force et vision la nuit (loups)."),
+    ABILITY_LISTEN("Écoute le chat des loups."),
+    ABILITY_SHOT("Tir mortel sur l'assassin."),
+    ABILITY_REVIVE("Résurrection unique.");
 
     private final Map<String, String> translations;
 

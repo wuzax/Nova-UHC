@@ -23,12 +23,8 @@ public class Main extends JavaPlugin {
                 lm.register(LangLguhc.values());
                 lm.importShipped(Main.this);
                 lm.requestReload();
-                ScenarioManager.get().addScenario(new LguhcScenario());
-                if (WereWolfPresence.available()) {
-                    getLogger().info("LG-UHC : WereWolfPlugin détecté (GetWereWolfAPI). Un seul moteur UHC par partie. Voir LGUHC.md.");
-                } else {
-                    getLogger().warning("LG-UHC : WereWolfPlugin absent. JAR officiel Ph1Lou : Spigot resource 73113.");
-                }
+                ScenarioManager.get().addScenario(new ScenarioLguhc());
+                getLogger().info("LG-UHC : scénario Nova enregistré (rôles ModeKit, pas WereWolfPlugin 1.21).");
             }
         }.runTaskLater(this, 20);
     }

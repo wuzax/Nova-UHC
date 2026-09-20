@@ -30,13 +30,21 @@ JARs produits :
 | `ultimate` | `ultimate/build/libs/Ultimate.jar` |
 | `scenarioplus` | `scenarioplus/build/libs/ScenarioPlus.jar` |
 | `uhc3945` | `uhc3945/build/libs/UHC3945.jar` |
-| `lguhc` | `lguhc/build/libs/LGUHC.jar` (pont WereWolf officiel, **pas** un port de rôles) |
+| `lguhc` | `lguhc/build/libs/LGUHC.jar` (mode **LG-UHC** natif 1.8.8, **pas** le JAR Ph1Lou 1.21) |
 
 Copier ces JARs dans `plugins/` d’un serveur Spigot/Paper **1.8.8**, avec les dépendances de Nova (`packetevents`, éventuellement Apollo / Citizens).
 
-## LG-UHC (Ph1Lou)
+## LG-UHC
 
-Loup-Garou UHC **n’est pas** réimplémenté dans Nova. On utilise le plugin officiel **WereWolfPlugin** (AGPL, Ph1Lou, multi-1.8.8–1.21+, Java 8). Nova et WereWolf sont **deux moteurs UHC** : ne lancez pas les deux parties à la fois. Détail, install Spigot **#73113**, compilation JDK 8+ : **[LGUHC.md](LGUHC.md)**.
+Module Gradle **`lguhc`** : Loup-Garou UHC **natif Nova 1.8.8** (`ScenarioRole` / `ModeKit`), inspiré de Ph1Lou (AGPL). Le JAR WereWolf actuel (Spigot **1.21.4**, `api-version: 1.13`) **ne charge pas** sur Nova.
+
+| Voie | Usage |
+| --- | --- |
+| **A** | Paper 1.21 séparé + WereWolfPlugin officiel (hors Nova) |
+| **B** | Ce module : LG **dans** Nova 1.8 (seul chemin « LG + chassis Nova 1.8 ») |
+| **C** | Migrer tout Nova en MC moderne — casse les clients UHC 1.8.9 sauf ViaVersion, chantier massif |
+
+Installer, composition host, rôles MVP : **[LGUHC.md](LGUHC.md)**. Constat versions et mapping : **[lguhc/DESIGN.md](lguhc/DESIGN.md)**.
 
 ## Scénario UHC 39-45
 
