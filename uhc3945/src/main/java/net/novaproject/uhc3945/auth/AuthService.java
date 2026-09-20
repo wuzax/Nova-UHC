@@ -278,7 +278,7 @@ public final class AuthService {
         if (!matched || signal == null || signal.isEmpty()) {
             return;
         }
-        for (Map.Entry<UHCPlayer, Role> entry : scenario.getPlayersRoles().entrySet()) {
+        for (var entry : scenario.getPlayersRoles().entrySet()) {
             if (!(entry.getValue() instanceof Infiltre)) {
                 continue;
             }

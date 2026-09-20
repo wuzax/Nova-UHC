@@ -16,6 +16,12 @@ tasks.named('test', Test) {
     useJUnitPlatform()
 }
 
+configurations.testRuntimeClasspath {
+    exclude group: 'io.netty'
+    exclude group: 'eu.cloudnetservice.cloudnet'
+    exclude group: 'dev.derklaro.aerogel'
+}
+
 jar {
     archiveFileName.set("UHC3945.jar")
     from {
