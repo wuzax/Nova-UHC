@@ -10,13 +10,13 @@ import net.novaproject.uhc3945.Role3945;
 import net.novaproject.uhc3945.auth.AuthCommand;
 import net.novaproject.uhc3945.auth.CodeCommand;
 import net.novaproject.uhc3945.auth.ConfirmCommand;
-import net.novaproject.uhc3945.roles.abilities.ResistantCachetteActive;
+import net.novaproject.uhc3945.roles.abilities.SaboteurNeutraliseActive;
 import org.bukkit.Material;
 
-public class Resistant extends Role3945 {
+public class Saboteur extends Role3945 {
 
-    @Var(name = "Cachette", desc = "Invisibilité brève. Épisode 2.", type = VariableType.ABILITY)
-    public Ability cachette;
+    @Var(name = "Sabotage", desc = "Silence temporaire des pouvoirs. Épisode 4.", type = VariableType.ABILITY)
+    public Ability sabotage;
 
     @Var(name = "Code", desc = "/role code — mot de reconnaissance de la cellule.", type = VariableType.ABILITY)
     private Ability code = new CodeCommand();
@@ -27,23 +27,23 @@ public class Resistant extends Role3945 {
     @Var(name = "Confirmer", desc = "/role confirmer <joueur> — si le chef est hors-jeu.", type = VariableType.ABILITY)
     private Ability confirm = new ConfirmCommand();
 
-    public Resistant() {
+    public Saboteur() {
         setCamp(Camps3945.RESISTANCE);
-        this.cachette = new ResistantCachetteActive();
+        this.sabotage = new SaboteurNeutraliseActive();
     }
 
     @Override
     public String getName() {
-        return "Résistant";
+        return "Saboteur";
     }
 
     @Override
     public Material getIconMaterial() {
-        return Material.BOW;
+        return Material.REDSTONE;
     }
 
     @Override
     public Lang getDescriptionLang() {
-        return Lang3945.ROLE_DESC_RESISTANT;
+        return Lang3945.ROLE_DESC_SABOTEUR;
     }
 }
