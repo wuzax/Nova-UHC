@@ -7,8 +7,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Main extends JavaPlugin {
 
+    private static Main instance;
+
+    public static Main get() {
+        return instance;
+    }
+
     @Override
     public void onEnable() {
+        instance = this;
         new BukkitRunnable() {
             @Override
             public void run() {
