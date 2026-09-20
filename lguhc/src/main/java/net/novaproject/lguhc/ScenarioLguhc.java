@@ -129,7 +129,9 @@ public class ScenarioLguhc extends ScenarioRole<RoleLguhc> implements Listener {
         super.onGameStart();
         UHCManager.get().setTeam_size(1);
         VictoryManager.setWinLabelResolver(this::resolveWinLabel);
-        ChatManager.get().createCampChannel(WOLF_CHANNEL, CampsLguhc.LOUPS, LguhcPower.WOLF_CHAT_PREFIX);
+        ChatManager.get()
+                .createCampChannel(WOLF_CHANNEL, CampsLguhc.LOUPS, LguhcPower.WOLF_CHAT_PREFIX)
+                .prefixRequiresWhitespaceBoundary(true);
     }
 
     @Override

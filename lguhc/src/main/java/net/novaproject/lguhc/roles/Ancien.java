@@ -40,9 +40,10 @@ public class Ancien extends RoleLguhc {
     public void onDeath(UHCPlayer uhcPlayer, UHCPlayer killer, PlayerDeathEvent event) {
         super.onDeath(uhcPlayer, killer, event);
         if (uhcPlayer != getOwner() || !firstLife) return;
-        firstLife = false;
         PendingDeathManager manager = PendingDeathManager.get();
         manager.beginPendingDeath(uhcPlayer, killer, event, 40L);
+        if (!manager.isPending(uhcPlayer.getUuid())) return;
+        firstLife = false;
         manager.registerResurrection(uhcPlayer, 40, () -> {
             manager.cancelPendingDeath(uhcPlayer);
             Player player = uhcPlayer.getPlayer();
