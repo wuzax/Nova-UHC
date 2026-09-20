@@ -7,31 +7,31 @@ import net.novaproject.novauhc.utils.variable.VariableType;
 import net.novaproject.uhc3945.Camps3945;
 import net.novaproject.uhc3945.Lang3945;
 import net.novaproject.uhc3945.Role3945;
-import net.novaproject.uhc3945.roles.abilities.ChefSignalActive;
+import net.novaproject.uhc3945.roles.abilities.ContrebandierColisActive;
 import org.bukkit.Material;
 
-public class ChefReseau extends Role3945 {
+public class Contrebandier extends Role3945 {
 
-    @Var(name = "Signal", desc = "Présences proches sans identités. Épisode 3.", type = VariableType.ABILITY)
-    public Ability signal;
+    @Var(name = "Colis", desc = "Or + pomme d'or, ou don en sneak. Épisode 3.", type = VariableType.ABILITY)
+    public Ability colis;
 
-    public ChefReseau() {
-        setCamp(Camps3945.RESISTANCE);
-        this.signal = new ChefSignalActive();
+    public Contrebandier() {
+        setCamp(Camps3945.CIVILIAN);
+        this.colis = new ContrebandierColisActive();
     }
 
     @Override
     public String getName() {
-        return "Chef de réseau";
+        return "Contrebandier";
     }
 
     @Override
     public Material getIconMaterial() {
-        return Material.COMPASS;
+        return Material.CHEST;
     }
 
     @Override
     public Lang getDescriptionLang() {
-        return Lang3945.ROLE_DESC_CHEF_RESEAU;
+        return Lang3945.ROLE_DESC_CONTREBANDIER;
     }
 }

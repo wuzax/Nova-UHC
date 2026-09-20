@@ -39,19 +39,42 @@ Module Gradle **`uhc3945`** : UHC à rôles cachés sur le thème de la Seconde 
 
 ### Camps
 
-| Camp | Comportement (scaffold) |
+| Camp | Comportement |
 | --- | --- |
 | **Axe** | Camp organisé : victoire groupée, les membres se connaissent. |
-| **Résistance** | Camp fragmenté : victoire de camp pour l’instant ; cellules / authentification **à venir**. |
+| **Résistance** | Camp fragmenté : victoire de camp ; cellules / authentification **à venir**. |
 | **Civils** | Indépendants : victoire solo. |
 
-### Rôles stub (cette PR)
+### Rôles et pouvoirs
 
-- **Axe** : Commandant (unique), Soldat (masse)
-- **Résistance** : Chef de réseau (unique), Résistant (masse)
-- **Civils** : Civil (filler si la composition ne couvre pas tous les joueurs), Informateur (unique)
+Les pouvoirs suivent les `Ability` Nova (`UseAbility` / `CommandAbility`), avec messages FR, cooldowns, utilisations limitées et **portes d’épisode**. Pas de Strength auto-win, pas de révélation d’un camp entier via un pouvoir.
 
-Hors périmètre pour l’instant : pouvoirs, authentification des cellules, infiltration, limites de groupes, génération de monde.
+**Axe**
+
+| Rôle | Type | Pouvoir |
+| --- | --- | --- |
+| Commandant | unique | **Ordre** (ép. 2, item) : Speed I + Résistance I aux Axe proches. Sa mort affaiblit les Soldats. |
+| Officier | unique | **`/role rapport`** (ép. 2) : position approximative du Commandant. |
+| Soldat | masse | **Charge** (ép. 2, item) : Speed II + Résistance I, courte durée. Plus faible sans Commandant. |
+
+**Résistance**
+
+| Rôle | Type | Pouvoir |
+| --- | --- | --- |
+| Chef de réseau | unique | **Signal** (ép. 3, item) : nombre de présences + direction, **sans noms**. |
+| Résistant | masse | **Cachette** (ép. 2, item) : invisibilité brève. |
+| Médecin | unique | **Soin** (ép. 2, item) : quelques cœurs, 3 utilisations. 1 pomme d’or au briefing. |
+| Saboteur | unique | **Sabotage** (ép. 4, item) : silence des pouvoirs + perte des buffs, 2 utilisations. |
+
+**Civils**
+
+| Rôle | Type | Pouvoir |
+| --- | --- | --- |
+| Civil | filler | **Instinct** (ép. 3, 1×/épisode) ; **`/role allegeance rester\|soutenir`** (ép. 5, 1×, ne change pas le camp). |
+| Informateur | unique | **`/role analyser`** (ép. 2) : santé / distance / équipement, jamais le rôle. **`/role transmettre`** (ép. 3). |
+| Contrebandier | unique | **Colis** (ép. 3, item) : or + pomme d’or. Sneak + visée pour le donner. |
+
+Hors périmètre (autres agents) : cellules / authentification, knowledge service, limites de groupes.
 
 ### Activer le scénario
 

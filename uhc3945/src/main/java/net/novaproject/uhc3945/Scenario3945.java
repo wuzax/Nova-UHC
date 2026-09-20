@@ -3,14 +3,18 @@ package net.novaproject.uhc3945;
 import net.novaproject.novauhc.lang.LangManager;
 import net.novaproject.novauhc.scenario.role.CampWinPolicy;
 import net.novaproject.novauhc.scenario.role.ModeKit;
-import net.novaproject.novauhc.scenario.role.ScenarioRole;
 import net.novaproject.novauhc.scenario.role.camps.Camps;
+import net.novaproject.novauhc.scenario.role.ScenarioRole;
 import net.novaproject.novauhc.utils.item.ItemCreator;
 import net.novaproject.uhc3945.roles.ChefReseau;
 import net.novaproject.uhc3945.roles.CivilNeutre;
 import net.novaproject.uhc3945.roles.Commandant;
+import net.novaproject.uhc3945.roles.Contrebandier;
 import net.novaproject.uhc3945.roles.Informateur;
+import net.novaproject.uhc3945.roles.Medecin;
+import net.novaproject.uhc3945.roles.Officier;
 import net.novaproject.uhc3945.roles.Resistant;
+import net.novaproject.uhc3945.roles.Saboteur;
 import net.novaproject.uhc3945.roles.Soldat;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -58,17 +62,23 @@ public class Scenario3945 extends ScenarioRole<Role3945> {
     public void setup() {
         super.setup();
         instance = this;
-        // TODO: cellules Résistance, infiltration, limites de groupes, pouvoirs, worldgen
         ModeKit.of(this)
                 .camp(Camps3945.AXE, CampWinPolicy::together)
                 .camp(Camps3945.RESISTANCE, CampWinPolicy::together)
                 .camp(Camps3945.CIVILIAN, CampWinPolicy::solo)
-                .uniqueRoles(Commandant.class, ChefReseau.class, Informateur.class)
+                .uniqueRoles(
+                        Commandant.class,
+                        Officier.class,
+                        ChefReseau.class,
+                        Medecin.class,
+                        Saboteur.class,
+                        Informateur.class,
+                        Contrebandier.class)
                 .role(Soldat.class)
                 .role(Resistant.class)
                 .filler(CivilNeutre.class)
                 .revealWithin(Camps3945.AXE)
                 .apply();
-        Bukkit.getLogger().info("[UHC 39-45] Scénario initialisé (camps + rôles stub).");
+        Bukkit.getLogger().info("[UHC 39-45] Scénario initialisé (camps + pouvoirs de rôles).");
     }
 }
