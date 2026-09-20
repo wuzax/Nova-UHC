@@ -1,0 +1,8 @@
+name: LGUHC
+main: net.novaproject.lguhc.Main
+version: 1.0
+authors:
+  - wuzax
+  - Ph1Lou
+depend:
+  - NovaUHC
