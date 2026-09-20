@@ -4,12 +4,19 @@ import net.novaproject.novauhc.lang.Lang;
 import net.novaproject.uhc3945.Camps3945;
 import net.novaproject.uhc3945.Lang3945;
 import net.novaproject.uhc3945.Role3945;
+import net.novaproject.uhc3945.win.PersonalObjective;
+import net.novaproject.uhc3945.win.PersonalObjectives;
 import org.bukkit.Material;
 
 public class CivilNeutre extends Role3945 {
 
     public CivilNeutre() {
         setCamp(Camps3945.CIVILIAN);
+    }
+
+    @Override
+    public PersonalObjective personalObjective() {
+        return PersonalObjectives.SURVIVE;
     }
 
     @Override
